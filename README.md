@@ -132,8 +132,8 @@ VLAN forbidden table is empty
 that each port is already assigned an untagged VLAN except for port nine. Our internal port is a VLAN trunk. Perfect, on the switch we are done for now.
 
 In case your are not seeing the above VLAN config, eg. there's no 8 VLANs set for the 8 ports - 1 for each, you need to make it from scatch. You decide:
-* You want the [8 VLAN config](/Switchconfig_from scratch_all_8VLANs.txt): each port has its own VLAN, VLAN 1 is the WAN, VLAN X is you choosen LAN. That seems to be the original way in NS-BSD from Stormshield's own firmware.
-* You want the [2 VLAN config](/Switchconfig_from scratch__2VLANs_only.txt): VLAN 1 is the WAN, VLAN 2 for your choosen LAN. That's a more generic router/fw setup. 
+* You want the [8 VLAN config](/blob/main/Switchconfig_from scratch__2VLANs_only.txt) : each port has its own VLAN, VLAN 1 is the WAN, VLAN X is you choosen LAN. That seems to be the original way in NS-BSD from Stormshield's own firmware.
+* You want the [2 VLAN config](/Switchconfig_from scratch__2VLANs_only.txt) : VLAN 1 is the WAN, VLAN 2 for your choosen LAN. That's a more generic router/fw setup. 
 * you want something in between? You can make it based on the two samples above.
 
 
