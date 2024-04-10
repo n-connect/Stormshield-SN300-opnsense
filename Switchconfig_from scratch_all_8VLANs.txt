@@ -1,0 +1,100 @@
+### log in to your OPNSense console, select: 8 , in the console run the next line, then your are in the switchconfig over com1 (cuau1 in FreeBSD)
+cu -l /dev/cuau1 -s 19200
+
+port state
+
+Port  State
+----  --------
+1     Disabled
+2     Disabled
+3     Disabled
+4     Disabled
+5     Disabled
+6     Disabled
+7     Disabled
+8     Disabled
+9     Disabled
+>port state 1-9 enable
+>port state
+
+Port  State
+----  --------
+1     Enabled
+2     Enabled
+3     Enabled
+4     Enabled
+5     Enabled
+6     Enabled
+7     Enabled
+8     Enabled
+9     Enabled
+>port mode
+
+Port  Mode         Link
+----  -----------  ----
+1     Auto         1Gfdx
+2     Auto         Down
+3     Auto         Down
+4     Auto         1Gfdx
+5     Auto         Down
+6     Auto         Down
+7     Auto         Down
+8     Auto         Down
+9     Auto         1Gfdx
+>vlan conf
+
+VLAN Configuration:
+===================
+
+
+Port  PVID  Frame Type  Ingress Filter  Tx Tag      Port Type
+----  ----  ----------  --------------  ----------  -------------
+1     1     All         Disabled        Untag PVID  Unaware
+2     1     All         Disabled        Untag PVID  Unaware
+3     1     All         Disabled        Untag PVID  Unaware
+4     1     All         Disabled        Untag PVID  Unaware
+5     1     All         Disabled        Untag PVID  Unaware
+6     1     All         Disabled        Untag PVID  Unaware
+7     1     All         Disabled        Untag PVID  Unaware
+8     1     All         Disabled        Untag PVID  Unaware
+9     1     All         Disabled        Untag PVID  Unaware
+
+VID   VLAN Name                         Ports
+----  --------------------------------  -----
+1     default                           1-9
+
+VID   VLAN Name                         Ports
+----  --------------------------------  -----
+VLAN forbidden table is empty
+
+### change to 2 vids(VLANS), vid 1 for port 1 (WAN) vid 2 for 2-8 (LAN) ###  
+>vlan porttype 9 c-port
+>vlan frametype 9 tagged
+>vlan pvid 9 none
+>vlan name add default 1
+>vlan add 1 1,9 ## add vlan id 1 to port 1 over 9 (CPU)
+>vlan add 2 2,9
+>vlan add 3 3,9
+>vlan add 4 4,9
+>vlan add 5 5,9
+>vlan add 6 6,9
+>vlan add 7 7,9
+>vlan add 8 8,9
+>vlan pvid 8 8
+>vlan pvid 7 7
+>vlan pvid 6 6
+>vlan pvid 5 5
+>vlan pvid 4 4
+>vlan pvid 3 3
+>vlan pvid 2 2
+>~.
+### your've just logged out, back to OPNSense own console ### 
+### at OPNSense level you need to reset interfaces with 2 vlan2 only WAN em0_vlan1 LAN em0_vlan2 ###
+#exit console
+exit
+# select: 2
+# give 1 for vid and em0 for interface
+# give 2 for vide and em0 for interface
+# give nothing, to move on to WAN interface selection: give em0_vlan1
+# same for LAN: em0_vlan2
+# reboot OPNSense
